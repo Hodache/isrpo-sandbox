@@ -19,7 +19,7 @@ import (
 	//
 	//    sw "github.com/myname/myrepo/go"
 	//
-	sw "isrposandbox/go"
+	sw "github.com/Hodache/isrpo-sandbox/go"
 )
 
 func main() {
