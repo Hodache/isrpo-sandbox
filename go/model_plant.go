@@ -9,10 +9,9 @@
 package swagger
 
 type Plant struct {
-
-	Id int32 `json:"id,omitempty"`
+	Id int `json:"id,omitempty"`
 	// Биологический вид
 	Species string `json:"species"`
 	// Год посадки растения
-	PlantingYear int32 `json:"planting_year"`
+	PlantingYear int `json:"planting_year"`
 }
