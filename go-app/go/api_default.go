@@ -16,7 +16,68 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var plants = []Plant{}
+var plants = []Plant{
+	{
+		Id:           0,
+		Species:      "Сосна обыкновенная",
+		PlantingYear: 2002,
+	},
+	{
+		Id:           1,
+		Species:      "Сосна обыкновенная",
+		PlantingYear: 2004,
+	},
+	{
+		Id:           2,
+		Species:      "Сосна кедровая сибирская",
+		PlantingYear: 2003,
+	},
+	{
+		Id:           3,
+		Species:      "Сосна кедровая сибирская",
+		PlantingYear: 2011,
+	},
+	{
+		Id:           4,
+		Species:      "Дуб крупноплодный",
+		PlantingYear: 2005,
+	},
+	{
+		Id:           5,
+		Species:      "Дуб монгольский",
+		PlantingYear: 2005,
+	},
+	{
+		Id:           6,
+		Species:      "Дуб каштанолистный",
+		PlantingYear: 2015,
+	},
+	{
+		Id:           7,
+		Species:      "Берёза пушистая",
+		PlantingYear: 2007,
+	},
+	{
+		Id:           8,
+		Species:      "Берёза кустарниковая",
+		PlantingYear: 2009,
+	},
+	{
+		Id:           9,
+		Species:      "Шиповник красно-бурый",
+		PlantingYear: 2017,
+	},
+	{
+		Id:           10,
+		Species:      "Шиповник блестящий",
+		PlantingYear: 2020,
+	},
+	{
+		Id:           11,
+		Species:      "Шиповник сизый",
+		PlantingYear: 2022,
+	},
+}
 var idCounter int = 0
 
 func CreatePlant(w http.ResponseWriter, r *http.Request) {
