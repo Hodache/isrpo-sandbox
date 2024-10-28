@@ -13,7 +13,6 @@ import (
 	"net/http"
 
 	"github.com/Hodache/isrpo-sandbox/go/middleware"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 
 	// WARNING!
 	// Change this to a fully-qualified import path
@@ -31,7 +30,6 @@ func main() {
 
 	// Метрики
 	router.Use(middleware.MetricsMiddleware)
-	http.Handle("/metrics", promhttp.Handler())
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

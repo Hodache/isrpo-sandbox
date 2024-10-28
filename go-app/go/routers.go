@@ -14,6 +14,7 @@ import (
 	"strings"
 
 	"github.com/gorilla/mux"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 type Route struct {
@@ -87,5 +88,12 @@ var routes = Routes{
 		strings.ToUpper("Put"),
 		"/plants/{id}",
 		UpdatePlant,
+	},
+
+	Route{
+		"CollectMetrics",
+		strings.ToUpper("Get"),
+		"/metrics",
+		promhttp.Handler().ServeHTTP,
 	},
 }

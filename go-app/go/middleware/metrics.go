@@ -39,6 +39,9 @@ func MetricsMiddleware(next http.Handler) http.Handler {
 
 		next.ServeHTTP(w, r)
 
+		if r.URL.Path == "/metrics" {
+			return
+		}
 		requestCounter.WithLabelValues(method, endpoint).Inc()
 		requestDuration.WithLabelValues(method, endpoint).Observe(time.Since(start).Seconds())
 	})

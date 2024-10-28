@@ -1,6 +1,7 @@
 services:
   go-app:
-    build: path/go-app
+    container_name: go-app
+    build: ./go-app
     ports:
       - "8080:8080"
     networks:
@@ -8,28 +9,30 @@ services:
 
   victoria-metrics:
     image: victoriametrics/victoria-metrics
+    container_name: victoria-metrics
     ports:
       - "8428:8428"
+    command:
+      - '-storageDataPath=/victoria-metrics-data'
     volumes:
       - victoria-metrics-data:/victoria-metrics-data
     networks:
       - isrpo-sandbox
-    command:
-      - '--storageDataPath=/victoria-metrics-data'
     
   vmagent:
     image: victoriametrics/vmagent
+    container_name: vmagent
     ports:
       - "8429:8429"
     depends_on:
       - victoria-metrics
-    networks:
-      - isrpo-sandbox
-    volumes:
-      - ./config/vmagent.yml:/config/vmagent.yml
     command:
+      - '-promscrape.config=/etc/vmagent/prometheus.yml'
       - '-remoteWrite.url=http://victoria-metrics:8428/api/v1/write'
-      - '-scrapeConfig.file=/config/vmagent.yml'
+    volumes:
+      - ./vmagent/prometheus.yml:/etc/vmagent/prometheus.yml
+    networks: 
+      - isrpo-sandbox
 
   grafana:
     image: grafana/grafana
