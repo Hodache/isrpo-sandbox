@@ -78,7 +78,7 @@ var plants = []Plant{
 		PlantingYear: 2022,
 	},
 }
-var idCounter int = 0
+var idCounter int = 12
 
 func CreatePlant(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
