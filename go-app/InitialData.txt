@@ -1,0 +1,62 @@
+[
+{
+id: 0,
+species: "Сосна обыкновенная",
+planting_year: 2002
+},
+{
+id: 1,
+species: "Сосна обыкновенная",
+planting_year: 2004
+},
+{
+id: 2,
+species: "Сосна кедровая сибирская",
+planting_year: 2003
+},
+{
+id: 3,
+species: "Сосна кедровая сибирская",
+planting_year: 2011
+},
+{
+id: 4,
+species: "Дуб крупноплодный",
+planting_year: 2005
+},
+{
+id: 5,
+species: "Дуб монгольский",
+planting_year: 2005
+},
+{
+id: 6,
+species: "Дуб каштанолистный",
+planting_year: 2015
+},
+{
+id: 7,
+species: "Берёза пушистая",
+planting_year: 2007
+},
+{
+id: 8,
+species: "Берёза кустарниковая",
+planting_year: 2009
+},
+{
+id: 9,
+species: "Шиповник красно-бурый",
+planting_year: 2017
+},
+{
+id: 10,
+species: "Шиповник блестящий",
+planting_year: 2020
+},
+{
+id: 11,
+species: "Шиповник сизый",
+planting_year: 2022
+}
+]

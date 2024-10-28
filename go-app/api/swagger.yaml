@@ -1,0 +1,131 @@
+openapi: 3.0.3
+info:
+  title: Дендрарий
+  description: "Учет деревьев, кустарников, лиан"
+  version: 1.0.0
+servers:
+- url: /
+paths:
+  /plants:
+    get:
+      summary: Получение списка растений
+      operationId: getPlants
+      responses:
+        "200":
+          description: "Список деревьев, кустарников, лиан"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Plant'
+                x-content-type: application/json
+        "500":
+          description: Ошибка при получении списка растений
+    post:
+      summary: Добавление нового растения
+      operationId: createPlant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plant'
+        required: true
+      responses:
+        "201":
+          description: Растение успешно добавлено
+        "400":
+          description: Неверный запрос
+        "500":
+          description: Ошибка добавления растения
+  /plants/{id}:
+    get:
+      summary: Получение растения по идентификатору
+      operationId: getPlantById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Запрошенное растение
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plant'
+        "400":
+          description: Неверный запрос
+        "404":
+          description: Растение не найдено
+        "500":
+          description: Ошибка при получении запрошенного растения
+    put:
+      summary: Обновление растения
+      operationId: updatePlant
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plant'
+        required: true
+      responses:
+        "200":
+          description: Растение успешно обновлено
+        "400":
+          description: Неверный запрос
+        "404":
+          description: Растение не найдено
+        "500":
+          description: Ошибка при обновлении растения
+    delete:
+      summary: Удаление растения
+      operationId: deletePlant
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Растение удалено успешно
+        "400":
+          description: Неверный запрос
+        "404":
+          description: Растение не найдено
+        "500":
+          description: Ошибка при удалении растения
+components:
+  schemas:
+    Plant:
+      required:
+      - planting_year
+      - species
+      type: object
+      properties:
+        id:
+          type: integer
+        species:
+          type: string
+          description: Биологический вид
+        planting_year:
+          type: integer
+          description: Год посадки растения
+      example:
+        species: species
+        planting_year: 6
+        id: 0

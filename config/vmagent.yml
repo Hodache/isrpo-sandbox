@@ -1,0 +1,10 @@
+scrape_configs:
+  - job_name: 'go_app' # Для вашего приложения
+    static_configs:
+      - targets: ['host.docker.internal:8080']
+    scrape_interval: 15s
+
+  - job_name: 'node_exporter' # Для Node Exporter
+    static_configs:
+      - targets: ['localhost:9100'] # Node Exporter будет доступен на localhost:9100
+    scrape_interval: 15s
