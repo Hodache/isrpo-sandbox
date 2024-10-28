@@ -17,29 +17,29 @@ services:
     command:
       - '--storageDataPath=/victoria-metrics-data'
     
-    vmagent:
-      image: victoriametrics/vmagent
-      ports:
-        - "8429:8429"
-      depends_on:
-        - victoria-metrics
-      networks:
-        - isrpo-sandbox
-      volumes:
-        - ./config/vmagent.yml:/config/vmagent.yml
-      command:
-        - '-remoteWrite.url=http://victoria-metrics:8428/api/v1/write'
-        - '-scrapeConfig.file=/config/vmagent.yml'
+  vmagent:
+    image: victoriametrics/vmagent
+    ports:
+      - "8429:8429"
+    depends_on:
+      - victoria-metrics
+    networks:
+      - isrpo-sandbox
+    volumes:
+      - ./config/vmagent.yml:/config/vmagent.yml
+    command:
+      - '-remoteWrite.url=http://victoria-metrics:8428/api/v1/write'
+      - '-scrapeConfig.file=/config/vmagent.yml'
 
-    grafana:
-      image: grafana/grafana
-      container_name: grafana
-      ports:
-        - "3000:3000"
-      depends_on:
-        - victoria-metrics
-      networks:
-        - isrpo-sandbox
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - victoria-metrics
+    networks:
+      - isrpo-sandbox
 
 networks:
   isrpo-sandbox:
