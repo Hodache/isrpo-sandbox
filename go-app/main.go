@@ -28,9 +28,6 @@ func main() {
 	log.Printf("Server started")
 	router := sw.NewRouter()
 
-	// Искусственная случайная задержка
-	router.Use(middleware.RandomDelayMiddleware)
-
 	// Метрики
 	router.Use(middleware.MetricsMiddleware)
 
