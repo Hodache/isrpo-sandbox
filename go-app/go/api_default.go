@@ -10,8 +10,11 @@ package swagger
 
 import (
 	"encoding/json"
+	"math/rand"
 	"net/http"
 	"strconv"
+
+	"github.com/sirupsen/logrus"
 
 	"github.com/gorilla/mux"
 )
@@ -149,6 +152,18 @@ func GetPlantById(w http.ResponseWriter, r *http.Request) {
 
 func GetPlants(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+
+	// Генерация и логирование ошибок
+	errorChance := rand.Intn(100)
+	if errorChance < 3 {
+		logrus.Error("Произошла ошибка с шансом 3%, код ответа 500")
+		http.Error(w, "Ошибка сервера (3%)", http.StatusInternalServerError)
+		return
+	} else if errorChance < 10 {
+		logrus.Error("Произошла ошибка с шансом 7%, код ответа 502")
+		http.Error(w, "Ошибка сервера (7%)", http.StatusBadGateway)
+		return
+	}
 
 	json.NewEncoder(w).Encode(plants)
 }

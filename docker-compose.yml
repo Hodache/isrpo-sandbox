@@ -2,6 +2,11 @@ services:
   go-app:
     container_name: go-app
     build: ./go-app
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     ports:
       - "8080:8080"
     networks:
@@ -31,6 +36,29 @@ services:
       - '-remoteWrite.url=http://victoria-metrics:8428/api/v1/write'
     volumes:
       - ./vmagent/prometheus.yml:/etc/vmagent/prometheus.yml
+    networks: 
+      - isrpo-sandbox
+
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/loki-config.yaml
+    volumes:
+      - ./logs/loki-config.yaml:/etc/loki/loki-config.yaml
+    networks: 
+      - isrpo-sandbox
+
+  promtail:
+    image: grafana/promtail:latest
+    volumes:
+      - /var/log:/var/log
+      - ./logs/promtail-config.yaml:/etc/promtail/config.yaml
+      - /var/run/docker.sock:/var/run/docker.sock
+    command:
+      - -config.file=/etc/promtail/config.yaml
+    depends_on:
+      - loki
     networks: 
       - isrpo-sandbox
 

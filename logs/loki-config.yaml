@@ -1,0 +1,35 @@
+auth_enabled: false
+
+server:
+  http_listen_port: 3100
+
+common:
+  instance_addr: 127.0.0.1
+  path_prefix: /tmp/loki
+  replication_factor: 1
+  storage:
+    filesystem:
+      chunks_directory: /tmp/loki/chunks
+      rules_directory: /tmp/loki/rules
+  ring:
+    kvstore:
+      store: inmemory
+
+schema_config:
+  configs:
+    - from: 2024-11-11
+      store: tsdb
+      object_store: filesystem
+      schema: v13
+      index:
+        prefix: index_
+        period: 24h
+
+limits_config:
+  max_query_lookback: 24h
+  retention_period: 24h
+
+compactor:
+  working_directory: /tmp/loki/retention
+  delete_request_store: filesystem
+  retention_enabled: true
