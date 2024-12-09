@@ -9,10 +9,17 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
 
 	"github.com/Hodache/isrpo-sandbox/go/middleware"
+
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
+	"go.opentelemetry.io/otel/sdk/resource"
+	"go.opentelemetry.io/otel/sdk/trace"
+	semconv "go.opentelemetry.io/otel/semconv/v1.17.0"
 
 	// WARNING!
 	// Change this to a fully-qualified import path
@@ -24,9 +31,35 @@ import (
 	sw "github.com/Hodache/isrpo-sandbox/go"
 )
 
+func initTracer() *trace.TracerProvider {
+	exporter, err := otlptracegrpc.New(context.Background(), otlptracegrpc.WithEndpoint("tempo:4317"), otlptracegrpc.WithInsecure())
+	if err != nil {
+		log.Fatalf("Ошибка создания экспортера: %v", err)
+	}
+
+	tp := trace.NewTracerProvider(
+		trace.WithBatcher(exporter),
+		trace.WithResource(resource.NewWithAttributes(
+			semconv.SchemaURL,
+			semconv.ServiceNameKey.String("my-service"),
+		)),
+	)
+	otel.SetTracerProvider(tp)
+	return tp
+}
+
 func main() {
 	log.Printf("Server started")
 	router := sw.NewRouter()
+
+	// Трейсы
+	tp := initTracer()
+	defer func() {
+		if err := tp.Shutdown(context.Background()); err != nil {
+			log.Fatalf("Ошибка остановки трейсеров: %v", err)
+		}
+	}()
+	router.Use(middleware.TracesMiddleware)
 
 	// Метрики
 	router.Use(middleware.MetricsMiddleware)

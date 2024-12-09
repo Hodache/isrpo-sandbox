@@ -1,0 +1,26 @@
+server:
+  http_listen_port: 3200
+
+storage:
+  trace:
+    backend: local
+    local:
+      path: /tmp/tempo/traces
+
+distributor:
+  receivers:
+    otlp:
+      protocols:
+        grpc: 
+          endpoint: 0.0.0.0:4317
+
+ingester:
+  lifecycler:
+    ring:
+      kvstore:
+        store: inmemory
+      replication_factor: 1
+
+querier:
+  frontend_worker:
+    frontend_address: 127.0.0.1:9095
