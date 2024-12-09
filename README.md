@@ -20,3 +20,15 @@ Grafana http://109.172.89.158:3000/ (admin, admin)
 ![image](https://github.com/user-attachments/assets/93dd73eb-3e32-47d0-aa69-6c1c1093ee49)  
 
 ![image](https://github.com/user-attachments/assets/676da56c-59a1-47ea-a8c7-71c623ebca2c)  
+
+# Трейсы  
+В middleware/traces.go симуляция дополнительной работы последовательно и параллельно с обработкой запроса  
+
+![image](https://github.com/user-attachments/assets/bf6e0f9d-faba-41ad-80a9-a2937f4bc7b3)  
+
+![image](https://github.com/user-attachments/assets/f9d82c43-ab4f-45f2-891f-6cec2a9a38cd)  
+
+![image](https://github.com/user-attachments/assets/910823d4-e710-4e93-b2d4-edc43dcd85f7)
+
+
+
