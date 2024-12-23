@@ -25,7 +25,7 @@ jobs:
         run: go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
       - name: Run golangci-lint
-        run: golangci-lint run ./...
+        run: golangci-lint run ./go-app/...
 
   build-and-push:
     name: Build and push Docker image
