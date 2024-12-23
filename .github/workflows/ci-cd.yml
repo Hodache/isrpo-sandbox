@@ -25,7 +25,8 @@ jobs:
         run: go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
       - name: Run golangci-lint
-        run: golangci-lint run ./go-app/...
+        working-directory: ./go-app
+        run: golangci-lint run ./...
 
   build-and-push:
     name: Build and push Docker image
@@ -43,7 +44,7 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/isrpo-sandbox:latest .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/isrpo-sandbox:latest ./go-app
           docker push ${{ secrets.DOCKER_USERNAME }}/isrpo-sandbox:latest
 
   deploy:
