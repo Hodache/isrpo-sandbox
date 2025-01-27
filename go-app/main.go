@@ -52,6 +52,8 @@ func main() {
 	log.Printf("Server started")
 	router := sw.NewRouter()
 
+	println("Server started")
+
 	// Трейсы
 	tp := initTracer()
 	defer func() {
